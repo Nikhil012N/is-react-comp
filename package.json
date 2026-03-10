@@ -58,7 +58,7 @@
   "bugs": {
     "url": "https://github.com/Nikhil012N/is-react-comp/issues"
   },
-  "homepage": "https://github.com/Nikhil012N/is-react-comp/is-react-comp#readme",
+  "homepage": "https://github.com/Nikhil012N/is-react-comp/#readme",
   "engines": {
     "node": ">=14.0.0"
   },

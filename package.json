@@ -1,0 +1,95 @@
+{
+  "name": "is-react-comp",
+  "module": "index.ts",
+  "main": "index.js",
+  "type": "module",
+  "version": "1.0.1",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.js",
+      "require": "./index.js"
+    },
+    "./ts": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "require": "./index.ts"
+    },
+    "./js": {
+      "import": "./index.js",
+      "require": "./index.js"
+    },
+    "./dist": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "index.ts",
+    "index.js",
+    "src/**/*",
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "author": {"email": "nikhil012nk@gmail.com", "name": "Nikhil Kumar"},
+  "private": false,
+  "keywords": [
+    "react",
+    "component",
+    "validation",
+    "detection",
+    "type-guards",
+    "utilities",
+    "runtime",
+    "javascript",
+    "typescript",
+    "react16",
+    "react17",
+    "react18",
+    "react19"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikhil012nk/is-react-comp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nikhil012nk/is-react-comp/issues"
+  },
+  "homepage": "https://github.com/nikhil012nk/is-react-comp#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^25.3.5",
+    "@types/react": "^18.0.0 || ^19.0.0",
+    "typescript": "^5",
+    "rimraf": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "typescript": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "build": "npm run build:ts && npm run build:js",
+    "build:ts": "tsc --outDir dist --declaration --emitDeclarationOnly",
+    "build:js": "node scripts/build-js.js",
+    "build:all": "npm run build:ts && npm run build:js && npm run build:bundles",
+    "build:bundles": "node scripts/build-bundles.js",
+    "dev": "tsc --watch",
+    "test": "node test-all.js",
+    "test:ts": "tsc --noEmit",
+    "test:js": "node test-js.js",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,136 @@
+# Dependency directories
+node_modules/
+node_modules
+
+# Build outputs - only include dist/
+dist/types
+dist/**/*.test.*
+dist/**/*.spec.*
+dist/**/*.stories.*
+dist/**/__tests__/
+dist/**/__mocks__/
+
+# Source files (only dist/ should be published)
+src/
+lib/
+esm/
+cjs/
+umd/
+
+# Test files
+__tests__/
+__mocks__/
+test/
+tests/
+*.test.js
+*.test.ts
+*.test.tsx
+*.spec.js
+*.spec.ts
+*.spec.tsx
+*.test-d.ts
+coverage/
+.nyc_output/
+jest.config.js
+jest.config.ts
+vitest.config.js
+vitest.config.ts
+test-setup.js
+test-setup.ts
+
+# Storybook
+.storybook/
+stories/
+*.stories.js
+*.stories.ts
+*.stories.tsx
+storybook-static/
+
+# Documentation (except README.md)
+docs/
+doc/
+*.md
+!README.md
+!LICENSE
+!CHANGELOG.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+PULL_REQUEST_TEMPLATE.md
+ISSUE_TEMPLATE/
+
+# Configuration files
+.*
+*.config.js
+*.config.ts
+*.config.json
+!.eslintrc.js
+!.prettierrc
+babel.config.js
+babel.config.json
+webpack.config.js
+rollup.config.js
+vite.config.js
+vite.config.ts
+tsconfig.json
+tsconfig.*.json
+typedoc.json
+.npmrc
+.yarnrc
+.lintstagedrc
+.commitlintrc
+.huskyrc
+.stylelintrc
+.editorconfig
+.nvmrc
+.env
+.env.*
+!.env.example
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# CI/CD
+.github/
+.gitlab/
+.circleci/
+.travis.yml
+azure-pipelines.yml
+Jenkinsfile
+.gitattributes
+.gitignore
+
+# Package manager lock files (but include for library users)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+# !package-lock.json  # Uncomment if you want to include lock files
+
+# Examples (not needed in package)
+example/
+examples/
+demo/
+demos/
+
+# Benchmarks
+benchmarks/
+benchmark/
+perf/
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+.temp/
+tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

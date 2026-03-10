@@ -34,7 +34,7 @@
     "LICENSE"
   ],
   "license": "MIT",
-  "author": {"email": "nikhil012nk@gmail.com", "name": "Nikhil Kumar"},
+  "author": {"email": "nikhil012nk+github@gmail.com", "name": "Nikhil Kumar"},
   "private": false,
   "keywords": [
     "react",
@@ -53,12 +53,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/nikhil012nk/is-react-comp.git"
+    "url": "https://github.com/Nikhil012N/is-react-comp.git"
   },
   "bugs": {
-    "url": "https://github.com/nikhil012nk/is-react-comp/issues"
+    "url": "https://github.com/Nikhil012N/is-react-comp/issues"
   },
-  "homepage": "https://github.com/nikhil012nk/is-react-comp#readme",
+  "homepage": "https://github.com/Nikhil012N/is-react-comp/is-react-comp#readme",
   "engines": {
     "node": ">=14.0.0"
   },

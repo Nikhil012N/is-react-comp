@@ -33,12 +33,12 @@ export {
 
 
 // Version information
-export const VERSION = '1.0.2';
+export const VERSION = '1.0.3';
 
 // Package metadata
 export const PACKAGE_INFO = {
   name: '@your-org/react-component-utils',
-  version: '1.0.2',
+  version: '1.0.3',
   description: 'Production-grade React component validation utilities'
 } as const;
 

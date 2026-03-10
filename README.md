@@ -10,49 +10,25 @@
 
 ---
 
-## 🔍 Overview
+## What does this do?
 
-`is-react-comp` is a comprehensive library that provides runtime utilities for detecting, validating, and working with React components. It supports all React component types including function components, class components, forwardRef, memo, lazy components, and React elements.
+Sometimes you have a variable and you're not sure if it's a React component or not. This package helps you figure that out!
 
-### 🌟 Universal Compatibility
-- **React Versions**: Works with React 16.8, 17, 18, and 19+
-- **Type Support**: Full TypeScript support + pure JavaScript version
-- **Environment**: Browser, Node.js, and universal/isomorphic apps
-- **Module Systems**: ESM, CommonJS, and TypeScript modules
-
-Perfect for:
-- Runtime component validation in dynamic rendering scenarios
-- Component introspection and debugging tools
-- Higher-order components that need to validate their inputs
-- Testing utilities and component analysis tools
-- Legacy React 16.8+ projects and modern React 19+ apps
+It works with:
+- ✅ Regular function components
+- ✅ Class components  
+- ✅ Components wrapped in `memo()`
+- ✅ Components wrapped in `forwardRef()`
+- ✅ Lazy-loaded components
+- ✅ React elements (optional)
 
 ---
 
-## ✨ Features
+## Quick Start
 
-- **🎯 Comprehensive Detection**: Supports all React component types
-  - Function components
-  - Class components  
-  - ForwardRef components
-  - Memo components
-  - Lazy components
-  - React elements (optional)
-
-- **🛡️ Type Safety**: Full TypeScript support with proper type guards
-- **⚡ Performance Optimized**: Efficient runtime checks with minimal overhead
-- **🔧 Flexible Configuration**: Configurable strictness and element inclusion
-- **🎣 React Hooks**: Built-in hooks for component validation in React components
-- **🏗️ HOC Support**: Higher-order component for runtime validation
-- **🌐 Universal**: Works across all React versions (16.8+) and environments
-- **📦 Dual Support**: TypeScript and JavaScript implementations included
-
----
-
-## 📦 Installation
+### Install it
 
 ```bash
-# npm
 npm install is-react-comp
 
 # yarn
@@ -65,311 +41,334 @@ pnpm add is-react-comp
 bun add is-react-comp
 ```
 
-### Peer Dependencies
+### Use it
 
-- `react` >= 16.8.0 (hooks introduction)
-- `typescript` >= 4.0.0 (optional, only for TypeScript projects)
+```javascript
+import { isReactComponent } from 'is-react-comp';
+
+function MyComponent() {
+  return <div>Hello!</div>;
+}
+
+// Check if it's a React component
+if (isReactComponent(MyComponent)) {
+  console.log('Yep, this is a React component! 🎉');
+}
+
+// Works with regular variables too
+const something = getSomethingFromSomewhere();
+if (isReactComponent(something)) {
+  // It's safe to render it
+  return <something />;
+}
+```
 
 ---
 
-## 🚀 Quick Start
+## What else can you do?
 
-### TypeScript Projects
-```typescript
-import {
-  isReactComponent,
-  getReactComponentInfo,
-  isFunctionComponent,
-  useIsComponent,
-  withComponentValidation
-} from 'is-react-comp';
+### Get info about a component
 
-// Basic component checking
-if (isReactComponent(MyComponent)) {
-  console.log('This is a valid React component!');
-}
-
-// Get detailed component information
-const info = getReactComponentInfo(MyComponent);
-console.log(info.componentType); // 'function' | 'class' | 'forwardRef' | 'memo' | 'lazy' | 'element'
-console.log(info.displayName);   // Component display name
-```
-
-### JavaScript Projects
 ```javascript
-import {
-  isReactComponent,
-  getReactComponentInfo,
-  isFunctionComponent,
-  useIsComponent,
-  withComponentValidation
-} from 'is-react-comp';
-
-// Works exactly the same in JavaScript!
-if (isReactComponent(MyComponent)) {
-  console.log('This is a valid React component!');
-}
+import { getReactComponentInfo } from 'is-react-comp';
 
 const info = getReactComponentInfo(MyComponent);
-console.log(info.componentType);
-console.log(info.displayName);
-}
+console.log(info.componentType); // "function", "class", "memo", etc.
+console.log(info.displayName);   // "MyComponent"
 ```
 
-### CommonJS (Node.js)
+### Check for specific types
+
 ```javascript
-const {
-  isReactComponent,
-  getReactComponentInfo,
-  isFunctionComponent
-} = require('is-react-comp');
+import { 
+  isFunctionComponent,
+  isClassComponent,
+  isMemoComponent 
+} from 'is-react-comp';
 
-// Works with CommonJS too
-if (isReactComponent(MyComponent)) {
-  console.log('Valid React component!');
+if (isFunctionComponent(MyComponent)) {
+  console.log('This is a function component');
 }
 ```
 
----
+### Use in React components
 
-## 📚 API Reference
+```javascript
+import { useIsComponent } from 'is-react-comp';
 
-### Core Functions
-
-#### `isReactComponent(value, options?)`
-
-Checks if a value is a React component.
-
-```typescript
-function isReactComponent(
-  value: unknown,
-  options?: {
-    includeElements?: boolean; // Include React elements (default: false)
-    strict?: boolean;          // Strict checking mode (default: true)
-  }
-): value is PossibleReactComponent;
-```
-
-#### `getReactComponentInfo(value)`
-
-Returns detailed information about a React component.
-
-```typescript
-function getReactComponentInfo(value: unknown): ReactComponentCheckResult;
-```
-
-Returns:
-```typescript
-interface ReactComponentCheckResult {
-  isComponent: boolean;
-  componentType?: 'function' | 'class' | 'forwardRef' | 'memo' | 'lazy' | 'element';
-  displayName?: string;
-}
-```
-
-### Type Guards
-
-#### `isFunctionComponent(component)`
-#### `isClassComponent(component)`
-#### `isMemoComponent(component)`
-#### `isForwardRefComponent(component)`
-#### `isLazyComponent(component)`
-#### `isReactElement(element)`
-
-Each function returns a boolean and provides proper TypeScript type narrowing.
-
-### React Hooks
-
-#### `useIsReactComponent(value, options?)`
-
-```typescript
-function useIsReactComponent<T>(
-  value: T,
-  options?: ComponentCheckOptions
-): { isComponent: boolean; componentInfo: ReactComponentCheckResult };
-```
-
-#### `useIsComponent(value, options?)`
-
-Alias for `useIsReactComponent`.
-
-### Higher-Order Component
-
-#### `withComponentValidation(Component, options?)`
-
-Wraps a component with runtime validation.
-
-```typescript
-function withComponentValidation<P>(
-  Component: React.ComponentType<P>,
-  options?: {
-    fallback?: React.ReactNode;
-    strict?: boolean;
-  }
-): React.ComponentType<P>;
-```
-
----
-
-## 🎯 Use Cases
-
-### Dynamic Component Rendering
-
-```typescript
-function ComponentRegistry({ componentName, props }) {
-  const Component = componentRegistry[componentName];
-  const { isComponent } = useIsComponent(Component);
+function MyWrapper({ children }) {
+  const { isComponent } = useIsComponent(children);
   
   if (!isComponent) {
-    return <ErrorComponent message={`Invalid component: ${componentName}`} />;
+    return <div>Not a valid component!</div>;
   }
   
-  return <Component {...props} />;
+  return children;
 }
 ```
 
-### Plugin Systems
+---
 
+## Complete Examples
+
+### Function Component
 ```javascript
+import { isReactComponent, isFunctionComponent } from 'is-react-comp';
+
+function MyButton({ text }) {
+  return <button>{text}</button>;
+}
+
+console.log(isReactComponent(MyButton));        // true
+console.log(isFunctionComponent(MyButton));     // true
+```
+
+### Class Component
+```javascript
+import { isReactComponent, isClassComponent } from 'is-react-comp';
+
+class MyCounter extends React.Component {
+  render() {
+    return <div>Count: {this.props.count}</div>;
+  }
+}
+
+console.log(isReactComponent(MyCounter));       // true
+console.log(isClassComponent(MyCounter));        // true
+```
+
+### Memo Component
+```javascript
+import { isReactComponent, isMemoComponent } from 'is-react-comp';
+
+const ExpensiveComponent = React.memo(function({ data }) {
+  return <div>{data.map(item => <span key={item.id}>{item.name}</span>)}</div>;
+});
+
+console.log(isReactComponent(ExpensiveComponent));    // true
+console.log(isMemoComponent(ExpensiveComponent));     // true
+```
+
+### ForwardRef Component
+```javascript
+import { isReactComponent, isForwardRefComponent } from 'is-react-comp';
+
+const MyInput = React.forwardRef((props, ref) => {
+  return <input ref={ref} {...props} />;
+});
+
+console.log(isReactComponent(MyInput));               // true
+console.log(isForwardRefComponent(MyInput));          // true
+```
+
+### Lazy Component
+```javascript
+import { isReactComponent, isLazyComponent } from 'is-react-comp';
+
+const LazyComponent = React.lazy(() => import('./MyComponent'));
+
+console.log(isReactComponent(LazyComponent));         // true
+console.log(isLazyComponent(LazyComponent));          // true
+```
+
+### React Elements
+```javascript
+import { isReactComponent, isReactElement } from 'is-react-comp';
+
+const element = <div>Hello World</div>;
+const component = function() { return <div>Hello</div>; };
+
+console.log(isReactElement(element));                 // true
+console.log(isReactElement(component));               // false
+
+// Include elements in component check
+console.log(isReactComponent(element, { includeElements: true }));  // true
+console.log(isReactComponent(component, { includeElements: true })); // true
+```
+
+### Real-World Plugin System Example
+```javascript
+import { isReactComponent, getReactComponentInfo } from 'is-react-comp';
+
 function PluginRenderer({ plugins }) {
   return plugins.map((plugin, index) => {
-    if (isReactComponent(plugin.component)) {
-      return React.createElement(plugin.component, { key: index, ...plugin.props });
+    // Validate each plugin is a React component
+    if (!isReactComponent(plugin.component)) {
+      console.error(`Plugin ${index} is not a valid React component`);
+      return <div key={index}>Invalid plugin component</div>;
     }
-    return null;
+    
+    const info = getReactComponentInfo(plugin.component);
+    
+    return (
+      <div key={index}>
+        <h3>{plugin.name}</h3>
+        <p>Type: {info.componentType}</p>
+        <plugin.component {...plugin.props} />
+      </div>
+    );
   });
 }
+
+// Usage
+const plugins = [
+  {
+    name: 'Header',
+    component: () => <header>My App</header>,
+    props: {}
+  },
+  {
+    name: 'Footer', 
+    component: React.memo(() => <footer>© 2024</footer>),
+    props: {}
+  }
+];
+
+<PluginRenderer plugins={plugins} />
 ```
 
-### Development Tools
-
+### Component Validation with Fallback
 ```javascript
-function ComponentInspector({ component }) {
+import { withComponentValidation } from 'is-react-comp';
+
+// Your regular component
+function UserProfile({ user }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+
+// Wrap with validation and fallback
+const SafeUserProfile = withComponentValidation(UserProfile, {
+  fallback: <div className="error">Failed to load user profile</div>,
+  strict: true
+});
+
+// Usage - will show fallback if UserProfile is invalid
+function App({ profileComponent }) {
+  return <SafeUserProfile user={{ name: 'John', email: 'john@example.com' }} />;
+}
+
+// Dynamic component example
+function DynamicComponentLoader({ component, fallback }) {
+  const SafeComponent = withComponentValidation(component, {
+    fallback: fallback || <div>Component not available</div>
+  });
+  
+  return <SafeComponent />;
+}
+
+// Usage with potentially invalid component
+const maybeInvalid = null; // Could be anything
+<DynamicComponentLoader 
+  component={maybeInvalid}
+  fallback={<div className="loading-error">Component failed to load</div>}
+/>
+```
+
+### Advanced Fallback Examples
+```javascript
+import { withComponentValidation } from 'is-react-comp';
+
+// Custom fallback component
+function ErrorFallback({ error, componentName }) {
+  return (
+    <div className="component-error">
+      <h3>⚠️ Component Error</h3>
+      <p>Failed to render: {componentName}</p>
+      {error && <p>Error: {error.message}</p>}
+    </div>
+  );
+}
+
+// Loading fallback
+function LoadingFallback() {
+  return (
+    <div className="loading">
+      <div className="spinner"></div>
+      <p>Loading component...</p>
+    </div>
+  );
+}
+
+// Wrap components with different fallbacks
+const SafeHeader = withComponentValidation(HeaderComponent, {
+  fallback: <ErrorFallback componentName="Header" />
+});
+
+const SafeLazyComponent = withComponentValidation(LazyComponent, {
+  fallback: <LoadingFallback />
+});
+
+// Conditional fallback based on component type
+function smartFallback(component) {
   const info = getReactComponentInfo(component);
   
-  return React.createElement('div', null, [
-    React.createElement('h3', null, 'Component Info'),
-    React.createElement('p', null, `Type: ${info.componentType}`),
-    React.createElement('p', null, `Name: ${info.displayName}`),
-    React.createElement('p', null, `Valid: ${info.isComponent ? '✅' : '❌'}`)
-  ]);
+  if (info.componentType === 'lazy') {
+    return <LoadingFallback />;
+  } else {
+    return <ErrorFallback componentName={info.displayName || 'Unknown'} />;
+  }
 }
+
+const SmartSafeComponent = withComponentValidation(SomeComponent, {
+  fallback: smartFallback(SomeComponent)
+});
 ```
 
 ---
 
-## ⚙️ Configuration
+## Why would you need this?
 
-### Options
+- **Plugin systems**: When users can pass in custom components
+- **Dynamic rendering**: When you're not sure what you're getting
+- **Debugging**: To figure out what type of component you're working with
+- **Component libraries**: To validate user input
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `includeElements` | `boolean` | `false` | Whether to consider React elements as components |
-| `strict` | `boolean` | `true` | Enable strict checking mode for better accuracy |
+---
 
-### TypeScript Configuration
+## Options
 
-Ensure your `tsconfig.json` includes:
+You can customize how it works:
 
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "bundler"
+```javascript
+// Include React elements as components too
+isReactComponent(something, { includeElements: true });
+
+// Less strict checking (might have false positives)
+isReactComponent(something, { strict: false });
+```
+
+---
+
+## TypeScript Support
+
+If you're using TypeScript, you get automatic type checking:
+
+```typescript
+import { isReactComponent } from 'is-react-comp';
+
+function doSomething(value: unknown) {
+  if (isReactComponent(value)) {
+    // TypeScript now knows this is a React component!
+    return <value />;
   }
 }
 ```
 
-### React Version Compatibility
+---
 
-| React Version | Supported | Features |
-|---------------|-----------|----------|
-| 16.8+ | ✅ | Hooks, memo, forwardRef, lazy |
-| 17.x | ✅ | All features |
-| 18.x | ✅ | All features + concurrent features |
-| 19.x | ✅ | All features + latest React features |
+## That's it!
+
+No complicated setup, no weird dependencies. Just a simple tool that does one thing well.
+
+**Questions?** [Open an issue](https://github.com/Nikhil012N/is-react-comp/issues)
 
 ---
 
-## 🏗️ Project Structure
-
-```
-is-react-comp/
-├── index.ts                    # TypeScript entry point
-├── index.js                    # JavaScript entry point
-├── src/
-│   ├── isReactComponent.ts     # Core detection logic (TS)
-│   ├── isReactComponent.js     # Core detection logic (JS)
-│   ├── reactComponentGuards.ts # Type guards (TS)
-│   ├── reactComponentGuards.js # Type guards (JS)
-│   ├── useIsReactComponent.ts  # React hooks (TS)
-│   ├── useIsReactComponent.js  # React hooks (JS)
-│   ├── withComponentValidation.tsx # HOC (TS)
-│   └── withComponentValidation.js # HOC (JS)
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
----
-
-## 🧪 Development
-
-```bash
-# Install dependencies
-bun install
-
-# Run type checking
-bun run tsc --noEmit
-
-# Test JavaScript version
-node test-js.js
-
-# Build (if build script is added)
-bun run build
-```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-### Development Guidelines
-
-- Follow the existing code style
-- Add TypeScript types for new functions
-- Include JSDoc comments for public APIs
-- Test with various React component types
-- Ensure compatibility with React 16.8+
-
----
-
-## 📄 License
+## License
 
 MIT © [Nikhil Kumar](mailto:nikhil012nk@gmail.com)
-
----
-
-## 🔗 Related Packages
-
-- [React](https://reactjs.org/) - The core React library
-- [TypeScript](https://www.typescriptlang.org/) - Type safety for JavaScript
-
----
-
-## 📊 Package Info
-
-- **Name**: `is-react-comp`
-- **Version**: `1.0.0`
-- **Author**: Nikhil Kumar
-- **License**: MIT
-- **Type**: ESM Module
-- **Main**: `index.js` (JavaScript), `index.ts` (TypeScript)
-- **React Support**: 16.8.0+
-- **TypeScript Support**: 4.0.0+ (optional)
-
----
-
-> **Note**: This package is designed to work with all React versions from 16.8+ (hooks introduction) through the latest React 19+. It provides both TypeScript and JavaScript implementations for maximum compatibility.

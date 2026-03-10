@@ -29,12 +29,12 @@ export {
 } from './src/withComponentValidation.js';
 
 // Version information
-export const VERSION = '1.0.1';
+export const VERSION = '1.0.2';
 
 // Package metadata
 export const PACKAGE_INFO = {
   name: 'is-react-comp',
-  version: '1.0.1',
+  version: '1.0.2',
   description: 'Production-grade React component validation utilities'
 };
 
